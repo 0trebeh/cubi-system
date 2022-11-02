@@ -11,7 +11,7 @@ const App = () => {
       <nav className='menu ordenar'>
         <Image
           height={'100%'}
-          src={"http://localhost:3000/logo-menu.jpeg" || "https://cubi-system.herokuapp.com/logo-menu.jpeg"}
+          src={"https://cubi-system.herokuapp.com/logo-menu.jpeg" || "http://localhost:3000/logo-menu.jpeg"}
         />
         <div className='ordenar'>
           <Button className='boton-nav'>Sobre Nosotros</Button>
