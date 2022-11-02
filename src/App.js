@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Card, Image } from 'antd';
+import { Button, Image } from 'antd';
 import 'antd/dist/antd.min.css';
 import "./App.css";
 
@@ -12,7 +12,7 @@ const App = () => {
       <nav className='menu ordenar'>
         <Image
           width={200}
-          src="http://localhost:3000/logo-menu.jpeg"
+          src={"http://localhost:3000/logo-menu.jpeg" || "https://cubi-system.herokuapp.com/logo-menu.jpeg"}
         />
         <div className='ordenar'>
           <Button className='boton-nav' type="primary">Sobre Nosotros</Button>
