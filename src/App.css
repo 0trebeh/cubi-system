@@ -5,7 +5,6 @@
   position:fixed;
   z-index:1;
   margin: 0;
-  padding:10px;
   width: 100%;
   height: 50px;
   background-color:rgb(75, 75, 75);
@@ -17,20 +16,28 @@
 }
 .boton-nav {
   margin-right: 8px;
+  background-color: rgb(66, 66, 66);
+  color: #fff;
+}
+.boton-nav:hover {
+  background-color: rgb(39, 34, 98);
 }
 .card {
   width: 300px;
 }
 .info {
-  padding-top: 60px;
+  padding-top: 50px;
   height: 100vh;
-  background-color: #000;
+  background-color: rgb(255, 255, 255);
 }
 .servicios {
-  height: 100vh;
+  height: calc(100vh - 50px);
   background-color: rgb(117, 117, 117);
 }
 .contactos {
-  height: 100vh;
-  background-color: rgb(255, 255, 255);
+  height: calc(100vh - 50px);
+  background-color: #000;
+}
+.text3 {
+  color:#fff;
 }
