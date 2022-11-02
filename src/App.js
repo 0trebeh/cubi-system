@@ -22,18 +22,16 @@ const App = () => {
       </nav>
 
       <div className="info">
-        <Card
-          className='card'
-        >
-          <p>Card content</p>
-          <p>Card content</p>
-          <p>Card content</p>
-        </Card>
+        <h1>Informacion de la Empresa</h1>
       </div>
 
-      <div className="servicios"></div>
+      <div className="servicios">
+        <h1>Servicios</h1>
+      </div>
       
-      <div className="contactos"></div>
+      <div className="contactos">
+        <h1>Contactos</h1>
+      </div>
 
     </div>
   );
