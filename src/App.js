@@ -63,11 +63,9 @@ const App = () => {
 
       <div className="inicio" id='inicio'>
         <h1 className="text0"> La seguridad al alcance de tus manos! </h1>
-
-        <div id='info' style={{height:"50px", width:"10px", bottom: 0, position: 'absolute'}}> </div>
       </div>
 
-      <div className="info">
+      <div className="info" id='info'>
       <h3 className="text1">Conócenos</h3>
         <h1 className="text1"><b>Sobre nosotros</b></h1>
         <div className='info-content'>
