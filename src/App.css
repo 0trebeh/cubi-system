@@ -1,5 +1,6 @@
 .body {
   height: 100%;
+  font-family: "Open Sans",Helvetica,Arial,sans-serif;
 }
 .menu {
   position:fixed;
@@ -7,12 +8,33 @@
   margin: 0;
   width: 100%;
   height: 50px;
-  background-color:rgb(75, 75, 75);
+  background-color:#fff;
 }
 .ordenar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+.ordenar-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.hide-icon-menu{
+  position: absolute;
+  right: 0px;
+  top: -100px;
+}
+.icon-nav{
+  margin-right: 8px;
+  padding: 4px;
+  border-radius: 3px;
+  color: rgb(66, 66, 66);
+  font-size: 25px;
+}
+.icon-nav:active {
+  color: #fff;
+  background-color: rgb(66, 66, 66);
 }
 .boton-nav {
   margin-right: 8px;
@@ -21,23 +43,204 @@
 }
 .boton-nav:hover {
   background-color: rgb(39, 34, 98);
+  cursor: pointer;
 }
-.card {
-  width: 300px;
+.inicio {
+  padding: 30px;
+  padding-top: 70px;
+  padding-bottom: 0;
+  height: 100vh;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../public/fondo.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
 }
 .info {
-  padding-top: 50px;
-  height: 100vh;
-  background-color: rgb(255, 255, 255);
+  min-height: calc(100vh - 50px);
+  padding: 20px 20px 20px 20px;
+  background-color: rgb(240, 240, 240);
 }
+.info-content {
+  color: rgb(66, 66, 66);
+}
+
 .servicios {
-  height: calc(100vh - 50px);
-  background-color: rgb(117, 117, 117);
+  padding: 15px 20px 0px 20px;
+  min-height: calc(100vh);
+  background-color: rgb(207, 207, 207);
+}
+.servicios-content {
+  padding: 40px 0px 30px 0px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+.card-serv {
+  width: 45vw;
+}
+.img-card-serv {
+  height: 50vh;
+}
+.contact-title {
+  text-align: center;
+  padding: 10px 20px 5px 20px;
 }
 .contactos {
-  height: calc(100vh - 50px);
-  background-color: #000;
+  min-height: calc(100vh - 50px);
+  padding: 0px 20px 30px 20px;
+  background-color: rgb(66, 66, 66);
 }
-.text3 {
-  color:#fff;
+.contact-title h1 {
+  color: rgb(207, 207, 207);
+  margin: 0;
+}
+.contact-body {
+  min-height: calc(75vh);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.card-contact {
+  width: 45vw;
+  max-width: 450px;
+  min-height:65vh;
+  color: rgb(66, 66, 66);
+}
+.card-contact-title {
+  text-align: center;
+  color: rgb(66, 66, 66);
+  margin: 0;
+}
+
+.mapouter {
+  position:relative;
+  text-align:right;
+  height:65vh;
+  width: 100%;
+}
+.gmap_canvas {
+  overflow:hidden;
+  background:none!important;
+  height:65vh;
+  width: 100%;
+}
+
+.text-p {
+  color: rgb(66, 66, 66);
+}
+.text0{
+  color: rgb(207, 207, 207);
+}
+.text1{
+  color: rgb(66, 66, 66);
+  text-align: center;
+}
+.text2{
+  color: rgb(66, 66, 66);
+  text-align: center;
+}
+.div-separator {
+  height: 15px;
+  width: 15px;
+}
+
+@media (max-width: 900px) {
+  .img-card-serv {
+    height: 45vh;
+  }
+}
+
+@media (max-width: 800px) {
+  .img-card-serv {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 660px) {
+
+  .inicio {
+    padding: 30px;
+    padding-top: 70px;
+    padding-bottom: 0;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../public/fondo-phone.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+
+  .hide-botton-menu{
+    position: absolute;
+    right: 0px;
+    top: -100px;
+  }
+
+  .hide-icon-menu{
+    position: initial;
+    right: 0;
+    top: 0;
+  }
+
+  .img-card-serv {
+    height: 30vh;
+  }
+
+  .content-center-660 {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .servicios-content {
+    padding: 40px 0px 30px 0px;
+    display: block;
+    width: 90%;
+  }
+
+  .card-serv {
+    width: 100%;
+  }
+
+  .contact-title {
+    text-align: center;
+    padding: 10px 20px 30px 20px;
+  }
+
+  .contact-body {
+    display: block;
+    width: 90%;
+  }
+
+  .card-contact {
+    width: 100%;
+    max-width: 100%;
+    height: 45vh;
+    min-height: 0;
+    color: rgb(66, 66, 66);
+  }
+
+  .ordenar {
+    display: block;
+    align-items: center;
+  }
+
+  .img-historia{
+    text-align: center;
+  }
+}
+
+@media (max-width: 500px) {
+  .inicio {
+    padding: 30px;
+    padding-top: 70px;
+    padding-bottom: 0;
+    height: 100vh;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)), url(../public/fondo-phone-500.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-attachment: fixed;
+  }
 }
