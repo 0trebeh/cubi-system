@@ -45,6 +45,12 @@
   background-color: rgb(39, 34, 98);
   cursor: pointer;
 }
+.active{
+  background-color: rgb(39, 34, 98);
+}
+.active:hover {
+  background-color: rgb(66, 66, 66);
+}
 .inicio {
   padding: 30px;
   padding-top: 70px;
@@ -244,3 +250,9 @@
     background-attachment: fixed;
   }
 }
+
+
+
+
+
+
