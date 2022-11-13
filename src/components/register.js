@@ -4,7 +4,9 @@ import {useNavigate} from 'react-router-dom';
 import { Form, Input, Button, Modal } from 'antd';
 import {
   UnlockOutlined,
-  MailOutlined
+  MailOutlined,
+  UserOutlined,
+  PhoneOutlined
 } from '@ant-design/icons';
 
 import Login from "./login";
@@ -20,8 +22,17 @@ const Register = (props) => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(true);
 
-  const onFinish = () => {
-    navigate('/Home');
+  const onFinish = (values) => {
+    //Component de session
+    localStorage.setItem("session", true);
+    localStorage.setItem("userData", JSON.stringify({
+      admin: true, 
+      nombre: values.name,
+      telefono: values.cell,
+      email: values.email,
+      Password: values.password
+    }));
+    navigate('/Pedidos');
   }; 
 
   const showLogin = () => {
@@ -41,6 +52,16 @@ const Register = (props) => {
       footer={null}
     >
       <Form {...layout} name="nest-messages" onFinish={onFinish} >
+        <Form.Item name={'name'} label="Nombre" 
+          rules={[{ type: 'string', required: true, message: 'Por favor, ingresa tu nombre!' }]}
+        >
+          <Input size="large" placeholder="Nombre" prefix={<UserOutlined />} />
+        </Form.Item>
+        <Form.Item name={'cell'} label="Telefono" 
+          rules={[{ type: 'string', required: true, message: 'Por favor, ingresa tu numero telefonico!' }]}
+        >
+          <Input size="large" placeholder="Telefono" prefix={<PhoneOutlined />} />
+        </Form.Item>
         <Form.Item name={'email'} label="Correo" 
           rules={[{ type: 'email', required: true, message: 'Por favor, ingresa tu correo!' }]}
         >

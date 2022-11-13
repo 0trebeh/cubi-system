@@ -88,6 +88,11 @@
 .img-card-serv {
   height: 50vh;
 }
+.boton-serv {
+  display: flex;
+  justify-content: right;
+}
+
 .contact-title {
   text-align: center;
   padding: 10px 20px 5px 20px;
@@ -254,5 +259,39 @@
 
 
 
+.section {
+  padding: 20px 20px 20px 20px;
+}
+.section-one {
+  padding: 70px 20px 20px 20px;
+  background-color: lightgray;
+}
+.pedidos {
+  background-color: rgb(240, 240, 240);
+}
+.danger {
+  background-color: brown;
+}
 
-
+.pedidos-page {
+  padding: 70px 20px 20px 20px;
+  background-color: lightgray;
+  min-height: 100vh;
+}
+.pedidos-elemento {
+  cursor: pointer;
+  margin: 0;
+  margin-left: 25px;
+}
+.pedidos-elemento:hover {
+  color: rgb(80, 72, 172);
+}
+.ordenar-pedidos {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  margin: 15px;
+}
+.nota {
+  background-color: antiquewhite;
+}

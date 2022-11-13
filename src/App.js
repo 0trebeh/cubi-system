@@ -8,16 +8,16 @@ import 'antd/dist/antd.min.css';
 import "./App.css";
 
 import LandingPage from './pages/landingpage'
-import Home from './pages/home'
 import Perfil from './pages/perfil'
+import Pedidos from './pages/pedidos'
 
 const App = () => {
   return (
     <Router>
       <Routes>
         <Route exact path='/' element={<LandingPage/>} />
-        <Route exact path='/Home' element={<Home/>} />
         <Route exact path='/Perfil' element={<Perfil/>} />
+        <Route exact path='/Pedidos' element={<Pedidos/>} />
       </Routes>
     </Router>
   );

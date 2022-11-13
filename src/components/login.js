@@ -21,7 +21,16 @@ const Login = (props) => {
     const [loginVisible, setLoginVisible] = useState(true);
 
     const onFinish = (values) => {
-        navigate('/Home');
+        //Component de session
+        localStorage.setItem("userData", JSON.stringify({
+          admin: false, 
+          nombre: 'Heberto',
+          telefono: '04146506340',
+          email: values.email,
+          Password: values.password
+        }));
+        localStorage.setItem("session", true);
+        navigate('/Perfil');
     }; 
 
     const showRegister = () => {
@@ -58,7 +67,10 @@ const Login = (props) => {
           <a href='#none' onClick={() => showRegister()}>Registrarme</a>
         </Form>
       </Modal>
+      { isRegisterVisible?
         <Register visible={isRegisterVisible} />
+        : null
+      }
     </>
     ); 
 }

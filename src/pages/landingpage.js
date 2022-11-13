@@ -4,19 +4,43 @@ import {useNavigate} from 'react-router-dom';
 import { MenuOutlined } from '@ant-design/icons';
 
 import Login from "../components/login";
+import FormCam from "../components/form-cam";
+import FormSoft from "../components/form-soft";
 
 const LandingPage = () => {
 
   const navigate = useNavigate();
 
+  // Cuando inicie sesion se cambiara el boton de iniciar session por perfil
+  // y los botones de cotizar enviaran la solicitud con un posible formulario donde se suministre info
+  // que pueda ayudar a determinar el costo del servicio en el caso solicitado
   if(localStorage.getItem("session") === "true"){
-    navigate('/Home');
+    <Button className='boton-nav active' onClick={() => navigate('/Perfil')}>Perfil</Button>
   }
 
   const [isLoginVisible, setIsLoginVisible] = useState(false);
+  const [FormCamOpen, setFormCamOpen] = useState(false);
+  const [FormSoftOpen, setFormSoftOpen] = useState(false);
+
+  var session = localStorage.getItem("session");
+  var isAdmin = JSON.parse(localStorage.getItem("userData"))?.admin;
 
   const showLogin = () => {
     setIsLoginVisible(!isLoginVisible);
+  };
+
+  const cotizar = (param) => {
+    if(session){
+      //solicitar cotizacion
+      if(param === 'cam'){
+        setFormCamOpen(!FormCamOpen);
+      }
+      if(param === 'soft'){
+        setFormSoftOpen(!FormSoftOpen);
+      }
+    } else {
+      showLogin();
+    }
   };
 
   const items = [
@@ -42,7 +66,23 @@ const LandingPage = () => {
       type: 'divider',
     },
     {
-      label: (<Button className='boton-nav active' onClick={() => showLogin()}><a href="#none">Iniciar sesión</a></Button>),
+      label: (
+      <>
+      { session ? 
+        <>
+        { !isAdmin ?
+          <Button className='boton-nav active' 
+          onClick={() => navigate('/Perfil')}>Perfil</Button>
+          :
+          <Button className='boton-nav active' 
+          onClick={() => navigate('/Pedidos')}>Lista de Clientes</Button>
+        }
+        </>
+      :
+        <Button className='boton-nav active' onClick={() => showLogin()}>Iniciar sesión</Button>
+      }
+      </>
+      ),
       key: '3',
     },
   ];
@@ -63,7 +103,20 @@ const LandingPage = () => {
             <Button className='boton-nav'><a href="#info">Sobre Nosotros</a></Button>
             <Button className='boton-nav'><a href="#serv">Servicios</a></Button>
             <Button className='boton-nav'><a href="#contact">Contactos</a></Button>
-            <Button className='boton-nav active' onClick={() => showLogin()}><a href="#none">Iniciar sesión</a></Button>
+            
+            { session ? 
+              <>
+              { !isAdmin ?
+                <Button className='boton-nav active' 
+                onClick={() => navigate('/Perfil')}>Perfil</Button>
+                :
+                <Button className='boton-nav active' 
+                onClick={() => navigate('/Pedidos')}>Lista de Clientes</Button>
+              }
+              </>
+            :
+              <Button className='boton-nav active' onClick={() => showLogin()}>Iniciar sesión</Button>
+            }
           </div>
 
           <Dropdown
@@ -155,6 +208,11 @@ const LandingPage = () => {
             >
               <h4 className='text-p'><b>Instalación de cámaras de seguridad</b></h4>
               <p className='text-p'>Acceso desde cualquier lugar a través de su computador o dispositivo móvil</p>
+              { isAdmin ? null :
+              <div className='boton-serv'>
+                <Button className='boton-nav active' onClick={() => cotizar('cam')}>Cotizar</Button>
+              </div>
+              }
             </Card>
             <div className='div-separator'></div>
             <Card
@@ -168,6 +226,11 @@ const LandingPage = () => {
                 <a href='https://premium-soft.com/'> premium-soft </a>
                 y te lo instalamos de manera segura
               </p>
+              { isAdmin ? null :
+              <div className='boton-serv'>
+                <Button className='boton-nav active' onClick={() => cotizar('soft')}>Cotizar</Button>
+              </div>
+              }
             </Card>
           </div>
         </div>
@@ -200,7 +263,9 @@ const LandingPage = () => {
       </div>
 
     </div>
-      <Login visible={isLoginVisible} />
+      <Login visible={isLoginVisible}/>
+      <FormCam visible={FormCamOpen}/>
+      <FormSoft visible={FormSoftOpen}/>
     </>
   );
 
