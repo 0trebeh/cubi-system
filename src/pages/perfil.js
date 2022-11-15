@@ -76,6 +76,7 @@ const Perfil = () => {
     localStorage.removeItem("session");
     localStorage.removeItem("userData");
     localStorage.removeItem("admin");
+    localStorage.removeItem("idReload");
     navigate('/');
   }
 
