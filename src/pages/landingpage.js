@@ -11,16 +11,12 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
 
-  if(localStorage.getItem("session") === "true"){
-    <Button className='boton-nav active' onClick={() => navigate('/Perfil')}>Perfil</Button>
-  }
-
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [FormCamOpen, setFormCamOpen] = useState(false);
   const [FormSoftOpen, setFormSoftOpen] = useState(false);
 
   var session = localStorage.getItem("session");
-  var isAdmin = JSON.parse(localStorage.getItem("userData"))?.admin;
+  var isAdmin = localStorage.getItem("admin");
 
   const showLogin = () => {
     setIsLoginVisible(!isLoginVisible);

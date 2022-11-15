@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
 });
 
 // Create Document Component
-const Pdf = () => (
+const Pdf = (props) => (
     <PDFViewer style={styles.content}>
         <Document>
             <Page size="A4" style={styles.page}>

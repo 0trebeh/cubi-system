@@ -10,6 +10,7 @@ import {
   SketchOutlined
 } from '@ant-design/icons';
 
+import axios from 'axios';
 import Pdf from "../components/pdf";
 
 const Perfil = () => {
@@ -17,13 +18,44 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   const [IsOpenPdf, setIsOpenPdf] = useState(false);
+  const [data, setData] = useState([]);
 
   var user = JSON.parse(localStorage.getItem("userData"));
-  var isAdmin = JSON.parse(localStorage.getItem("userData"))?.admin;
+  var isAdmin = localStorage.getItem("admin");
 
   if(localStorage.getItem("session") === "false"){
     navigate('/');
   }
+
+  useEffect(() => { 
+    //obtiene los datos del usuario
+    const getData = async () => {
+      var id;
+      if(localStorage.getItem("idReload")){
+        id = localStorage.getItem("idReload");
+
+        const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/users/'+id);
+
+        console.log(response);
+
+        if(response.status === 505) { alert('Error en el servidor'); return 0; }
+
+        localStorage.setItem("userData", JSON.stringify({
+          id: response.data[0]?.id,
+          admin: response.data[0]?.admin, 
+          nombre: response.data[0]?.nombre,
+          telefono: response.data[0]?.telefono,
+          email: response.data[0]?.email,
+          Password: response.data[0]?.password
+        }));
+      } else {
+        id = JSON.parse(localStorage.getItem("userData")).id;
+      }
+      const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/request/'+id);
+      setData(response?.data);
+    }
+    getData();
+  }, []);
 
   const generarReporte = () => {
     //solicitar cotizacion
@@ -34,6 +66,7 @@ const Perfil = () => {
   const logout = () => {
     localStorage.removeItem("session");
     localStorage.removeItem("userData");
+    localStorage.removeItem("admin");
     navigate('/');
   }
 
@@ -103,8 +136,7 @@ const Perfil = () => {
       
       <div className="section pedidos" id='pedidos'>
         <h1> Pedidos </h1>
-
-        { data.lenth ? 
+        { data.length ? 
           data.map((item, i) =>
             <Card
               key={i}
@@ -112,21 +144,22 @@ const Perfil = () => {
               bordered={false}
               className="ordenar-pedidos card-info-content"
             > 
-              {item?.tipoServicio ?
+              {item?.tipoServicio === 'camaras' ?
                 <>
-                  <h3><b>#{i} Instalacion de camaras</b></h3>
-                  <p className='text-p'> Dimension: {item}</p>
-                  <p className='text-p'> Tipo de lugar: {item}</p>
-                  <p className='text-p'> Dimension: {item}</p>
-                  <p className='text-p'> <b>Costo: $500</b></p>
+                  <h3><b>#{i+1} Instalacion de camaras</b></h3>
+                  <p className='text-p'> <b>Dimension: </b> {item.dimencion}</p>
+                  <p className='text-p'> <b>Cantidad de camaras externas: </b> {item.camExt}</p>
+                  <p className='text-p'> <b>Cantidad de camaras internas: </b> {item.camInt}</p>
+                  <p className='text-p'> <b>Tipo de lugar: </b> {item.tipoLugar}</p>
+                  <p className='text-p'> <b>Ubicacion: </b> {item.ubicacion}</p>  
+                  <p className='text-p pedidos'> <b>Costo: ${item.costo}</b></p>
                 </>
               :
                 <>
-                  <h3><b>#{i} Instalacion de software Pskloud</b></h3>
-                  <p className='text-p'> Dimension: {item}</p>
-                  <p className='text-p'> Tipo de lugar: {item}</p>
-                  <p className='text-p'> Dimension: {item}</p>
-                  <p className='text-p'> <b>Costo: $500</b></p>
+                  <h3><b>#{i+1} Instalacion de software Pskloud</b></h3>
+                  <p className='text-p'> <b>Cantidad de computadoras: </b> {item.numComp}</p>
+                  <p className='text-p'> <b>Ubicacion: </b> {item.ubicacion}</p>
+                  <p className='text-p pedidos'> <b>Costo: ${item.costo}</b></p>
                 </>
               }
               { isAdmin ?

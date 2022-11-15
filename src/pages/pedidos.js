@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Card, Dropdown, Space } from 'antd';
 import {useNavigate} from 'react-router-dom';
 import { MenuOutlined, RightSquareOutlined } from '@ant-design/icons';
@@ -9,16 +9,17 @@ const Pedidos = () => {
 
   const navigate = useNavigate();
 
+  const [list, setList] = useState([]);
+
   if(localStorage.getItem("session") === "false"){
     navigate('/');
   }
 
-  var arrays = [];
-  var result = [];
-
   useEffect(() => { 
-    //obtiene los datos del usuario
+    
     const getData = async () => {
+      var arrays = [];
+      var result = [];
       const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/request');
       arrays = response?.data;
 
@@ -34,13 +35,22 @@ const Pedidos = () => {
         }
         if(flag === true) result.push(arrays[i]);
       }
+
+      console.log(result)
+      setList(result);
     }
     getData();
   }, []);
 
+  const openProfile = (id) => {
+    localStorage.setItem("idReload", id);
+    navigate('/Perfil');
+  }
+
   const logout = () => {
     localStorage.removeItem("session");
     localStorage.removeItem("userData");
+    localStorage.removeItem("admin");
     navigate('/');
   }
 
@@ -85,14 +95,14 @@ const Pedidos = () => {
 
       <div className="pedidos-page">
         <h1> <b>Lista de Pedidos: </b></h1>
-        { result.map((item, i) =>
+        { list.map((item, i) =>
           <Card
             key={i}
             hoverable
             bordered={false}
             className="ordenar-pedidos card-info-content"
             onClick={() => {
-              navigate('/Perfil')
+              openProfile(item.id);
               }
             }
           >

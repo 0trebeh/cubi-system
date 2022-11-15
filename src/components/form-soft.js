@@ -23,7 +23,7 @@ const FormSoft = (props) => {
       handleCancel();
       alert('Solicitud de cotizacion Enviada.');
 
-      const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/request/newPeticion',{
+      await axios.post('https://cubi-api-rest.herokuapp.com/api/request/newPeticion',{
         tipoServicio: 'software', 
         dimencion: null, 
         camExt: null, 

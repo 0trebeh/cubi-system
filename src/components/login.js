@@ -47,6 +47,7 @@ const Login = (props) => {
         localStorage.setItem("session", true);
         
         if(response.data[0]?.admin === true){
+          localStorage.setItem("admin", true);
           navigate('/Pedidos');
         } else {
           navigate('/Perfil');
