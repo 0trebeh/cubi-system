@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@react-pdf/renderer": "^3.0.1",
+    "@react-pdf/renderer": "3.0.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -20,6 +20,13 @@
     "serve": "^14.0.1",
     "web-vitals": "^1.0.1"
   },
+  "overrides": {
+    "@react-pdf/font": "2.2.1",
+    "@react-pdf/pdfkit": "2.1.0"
+},
+"resolutions": {
+  "@react-pdf/font": "2.2.0"
+},
   "scripts": {
     "dev": "react-scripts start",
     "start": "serve -s build",
