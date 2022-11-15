@@ -9,6 +9,7 @@ import {
   PhoneOutlined
 } from '@ant-design/icons';
 
+import axios from 'axios';
 import Login from "./login";
 
 const layout = {
@@ -22,17 +23,32 @@ const Register = (props) => {
   const [isLoginVisible, setIsLoginVisible] = useState(false);
   const [registerVisible, setRegisterVisible] = useState(true);
 
-  const onFinish = (values) => {
-    //Component de session
-    localStorage.setItem("session", true);
-    localStorage.setItem("userData", JSON.stringify({
-      admin: true, 
-      nombre: values.name,
-      telefono: values.cell,
-      email: values.email,
-      Password: values.password
-    }));
-    navigate('/Pedidos');
+  const onFinish = async (values) => {
+    
+    const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/users/newUser',{
+      nombre: values.name, 
+      telefono: values.cell, 
+      email: values.email, 
+      password: values.password
+    });
+
+    if(response.data.length === [].length || response.status === 505){
+      alert('error al registrase');
+      return 0;
+    }
+    
+    if(response.status === 200){
+      localStorage.setItem("session", true);
+      localStorage.setItem("userData", JSON.stringify({
+        id: response.data[0]?.id,
+        admin: false,
+        nombre: values.name,
+        telefono: values.cell,
+        email: values.email,
+        Password: values.password
+      }));
+      navigate('/Perfil');
+    }
   }; 
 
   const showLogin = () => {
@@ -43,7 +59,6 @@ const Register = (props) => {
   const handleCancel = () => {
     setRegisterVisible(!registerVisible);
   };
-
 
   return (
     <>

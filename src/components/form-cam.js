@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
 
 import { Form, Input, Button, Modal, Select, InputNumber } from 'antd';
 import { 
     CodepenOutlined,
     VideoCameraOutlined,
     CameraOutlined,
-    HomeOutlined,
     GlobalOutlined
 } from '@ant-design/icons';
+
+import axios from 'axios';
 
 const layout = {
     labelCol: { span: 5 },
@@ -17,11 +17,25 @@ const layout = {
 
 const FormCam = (props) => {
 
-    const navigate = useNavigate();
     const [form, setForm] = useState(true);
+    var id = JSON.parse(localStorage.getItem("userData"))?.id;
 
-    const onFinish = (values) => {
-        alert('cotizar');
+    const onFinish = async (values) => {
+
+      handleCancel();
+      alert('Solicitud de cotizacion Enviada.');
+
+      const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/request/newPeticion',{
+        tipoServicio: 'camaras', 
+        dimencion: values.dimension, 
+        camExt: values.exteriores, 
+        camInt: values.interiores, 
+        tipoLugar: values.lugar, 
+        ubicacion: values.ubicacion, 
+        numComp: null, 
+        costo: null, 
+        id_usuario: id
+      });
     }; 
 
     const handleCancel = () => {
@@ -38,8 +52,7 @@ const FormCam = (props) => {
           <Form.Item name={'dimension'} label="Dimension" 
             rules={[{ required: true, message: 'Por favor, ingresa la dimension del lugar' }]}
           >
-            <Input size="large" placeholder="Dimension" prefix={<CodepenOutlined />} />
-            metros cuadrados {'(m²)'}
+            <Input size="large" placeholder="Metros cuadrados (m²)" prefix={<CodepenOutlined />} />
           </Form.Item>
           <Form.Item name={'lugar'} label="Tipo de Lugar" 
             rules={[{ required: true, message: 'Por favor, elija un valor!' }]}
@@ -58,7 +71,7 @@ const FormCam = (props) => {
                 ]}
             />
           </Form.Item>
-          <Form.Item name={'Ubicacion'} label="Ubicacion" 
+          <Form.Item name={'ubicacion'} label="Ubicacion" 
             rules={[{ required: true, message: 'Por favor, ingresa tu Ubicacion!' }]}
           >
             <Input size="large" placeholder="Ubicacion" prefix={<GlobalOutlined />} />

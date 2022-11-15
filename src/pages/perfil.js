@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Button, Card, Dropdown, Space } from 'antd';
 import {useNavigate} from 'react-router-dom';
 import { 
@@ -103,32 +103,49 @@ const Perfil = () => {
       
       <div className="section pedidos" id='pedidos'>
         <h1> Pedidos </h1>
+
+        { data.lenth ? 
+          data.map((item, i) =>
+            <Card
+              key={i}
+              hoverable
+              bordered={false}
+              className="ordenar-pedidos card-info-content"
+            > 
+              {item?.tipoServicio ?
+                <>
+                  <h3><b>#{i} Instalacion de camaras</b></h3>
+                  <p className='text-p'> Dimension: {item}</p>
+                  <p className='text-p'> Tipo de lugar: {item}</p>
+                  <p className='text-p'> Dimension: {item}</p>
+                  <p className='text-p'> <b>Costo: $500</b></p>
+                </>
+              :
+                <>
+                  <h3><b>#{i} Instalacion de software Pskloud</b></h3>
+                  <p className='text-p'> Dimension: {item}</p>
+                  <p className='text-p'> Tipo de lugar: {item}</p>
+                  <p className='text-p'> Dimension: {item}</p>
+                  <p className='text-p'> <b>Costo: $500</b></p>
+                </>
+              }
+              { isAdmin ?
+                  <Button className='boton-nav danger' onClick={() => generarReporte()}>Generar reporte de venta</Button>
+                :
+                  null
+              }
+            </Card>
+          )  
+          :
           <Card
             hoverable
             bordered={false}
             className="ordenar-pedidos card-info-content"
           >
-            <h3><b>#1 Instalacion de camaras</b></h3>
-            <p className='text-p'> <b>Costo: $500</b></p>
-            { isAdmin ?
-                <Button className='boton-nav danger' onClick={() => generarReporte()}>Generar reporte de venta</Button>
-              :
-                null
-            }
+            <h3><b>Esta cuenta no ha solicitado ninguna cotizacion</b></h3>
           </Card>
-          <Card
-            hoverable
-            bordered={false}
-            className="ordenar-pedidos card-info-content"
-          >
-            <h3><b>#2 Instalacion de software Premium</b></h3>
-            <p className='text-p'> <b>Costo: $150</b></p>
-            { isAdmin ?
-                <Button className='boton-nav danger' onClick={() => generarReporte()}>Generar reporte de venta</Button>
-              :
-                null
-            }
-          </Card>
+        }
+
       </div>
 
       { isAdmin ?

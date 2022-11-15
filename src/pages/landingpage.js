@@ -11,9 +11,6 @@ const LandingPage = () => {
 
   const navigate = useNavigate();
 
-  // Cuando inicie sesion se cambiara el boton de iniciar session por perfil
-  // y los botones de cotizar enviaran la solicitud con un posible formulario donde se suministre info
-  // que pueda ayudar a determinar el costo del servicio en el caso solicitado
   if(localStorage.getItem("session") === "true"){
     <Button className='boton-nav active' onClick={() => navigate('/Perfil')}>Perfil</Button>
   }
@@ -31,7 +28,6 @@ const LandingPage = () => {
 
   const cotizar = (param) => {
     if(session){
-      //solicitar cotizacion
       if(param === 'cam'){
         setFormCamOpen(!FormCamOpen);
       }
@@ -197,7 +193,7 @@ const LandingPage = () => {
 
       <div className="servicios" id='serv'>
         <h1 className="text2"><b>Servicios</b></h1>
-        <h3 className="text2">Servicios de <b>instalación de cámaras de seguridad</b> a nivel domiciliar y empresarial, así como también a la <b>instalación del software Saint administrativo de ventas</b></h3>
+        <h3 className="text2">Servicios de <b>instalación de cámaras de seguridad</b> a nivel domiciliar y empresarial, así como también a la <b>instalación del software Pskloud administrativo de ventas</b></h3>
         <div className='content-center-660'>
           <div className='servicios-content'>
             <Card
@@ -221,7 +217,7 @@ const LandingPage = () => {
               cover={<img className='img-card-serv' alt="Instalacion de software" 
               src="https://cubi-system.herokuapp.com/ins-soft.webp" />}
             >
-              <h4 className='text-p'><b>Instalación de software administrativo de ventas</b></h4>
+              <h4 className='text-p'><b>Instalación de software administrativo de ventas Pskloud</b></h4>
               <p className='text-p'>Vendemos las licencias de 
                 <a href='https://premium-soft.com/'> premium-soft </a>
                 y te lo instalamos de manera segura

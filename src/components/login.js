@@ -7,6 +7,7 @@ import {
   UnlockOutlined
 } from '@ant-design/icons';
 
+import axios from 'axios';
 import Register from "./register";
 
 const layout = {
@@ -20,17 +21,40 @@ const Login = (props) => {
     const [isRegisterVisible, setIsRegisterVisible] = useState(false);
     const [loginVisible, setLoginVisible] = useState(true);
 
-    const onFinish = (values) => {
-        //Component de session
+    const onFinish = async (values) => {
+        
+      const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/users/login',{
+        email: values.email
+      });
+
+      if(response.status === 505) { alert('Error en el servidor'); return 0; }
+
+      if(response.data.length === [].length) {
+        alert('El email ingresado no se encuentra registrado');
+        return 0;
+      }
+
+      if(response.data[0]?.password === values.password){
+      
         localStorage.setItem("userData", JSON.stringify({
-          admin: false, 
-          nombre: 'Heberto',
-          telefono: '04146506340',
+          id: response.data[0]?.id,
+          admin: response.data[0]?.admin, 
+          nombre: response.data[0]?.nombre,
+          telefono: response.data[0]?.telefono,
           email: values.email,
           Password: values.password
         }));
         localStorage.setItem("session", true);
-        navigate('/Perfil');
+        
+        if(response.data[0]?.admin === true){
+          navigate('/Pedidos');
+        } else {
+          navigate('/Perfil');
+        }
+
+      } else {
+        alert('Contrasena incorrecta');
+      }
     }; 
 
     const showRegister = () => {

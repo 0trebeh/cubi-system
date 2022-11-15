@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
 
 import { Form, Input, Button, Modal, InputNumber } from 'antd';
 import { 
     LaptopOutlined,
     GlobalOutlined
 } from '@ant-design/icons';
+
+import axios from 'axios';
 
 const layout = {
     labelCol: { span: 5 },
@@ -14,15 +15,30 @@ const layout = {
 
 const FormSoft = (props) => {
 
-    const navigate = useNavigate();
     const [form, setForm] = useState(true);
+    var id = JSON.parse(localStorage.getItem("userData"))?.id;
 
-    const onFinish = (values) => {
-        alert('cotizar');
+    const onFinish = async (values) => {
+
+      handleCancel();
+      alert('Solicitud de cotizacion Enviada.');
+
+      const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/request/newPeticion',{
+        tipoServicio: 'software', 
+        dimencion: null, 
+        camExt: null, 
+        camInt: null, 
+        tipoLugar: null, 
+        ubicacion: values.ubicacion, 
+        numComp: values.computadoras, 
+        costo: null, 
+        id_usuario: id
+      });
+        
     }; 
 
     const handleCancel = () => {
-        setForm(!form);
+      setForm(!form);
     };
     
     return (
@@ -37,7 +53,7 @@ const FormSoft = (props) => {
           >
             <InputNumber size="large" placeholder="Numero de computadoras" prefix={<LaptopOutlined />} style={{ width: '100%' }}/>
           </Form.Item>
-          <Form.Item name={'Ubicacion'} label="Ubicacion" 
+          <Form.Item name={'ubicacion'} label="Ubicacion" 
             rules={[{ required: true, message: 'Por favor, ingresa tu Ubicacion!' }]}
           >
             <Input size="large" placeholder="Ubicacion" prefix={<GlobalOutlined />} />

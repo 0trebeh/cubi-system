@@ -11,6 +11,9 @@ import LandingPage from './pages/landingpage'
 import Perfil from './pages/perfil'
 import Pedidos from './pages/pedidos'
 
+import axios from 'axios';
+axios.defaults.baseURL = 'https://cubi-api-rest.herokuapp.com';
+
 const App = () => {
   return (
     <Router>

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { Button, Card, Dropdown, Space } from 'antd';
 import {useNavigate} from 'react-router-dom';
 import { MenuOutlined, RightSquareOutlined } from '@ant-design/icons';
+
+import axios from 'axios';
 
 const Pedidos = () => {
 
@@ -10,6 +12,31 @@ const Pedidos = () => {
   if(localStorage.getItem("session") === "false"){
     navigate('/');
   }
+
+  var arrays = [];
+  var result = [];
+
+  useEffect(() => { 
+    //obtiene los datos del usuario
+    const getData = async () => {
+      const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/request');
+      arrays = response?.data;
+
+      var flag = false;
+      for( var i = 0; i < arrays.length; i++ ) {
+        flag = true;
+        if(i === 0) result.push(arrays[i]);
+        for( var j = 0; j < result.length; j++ ) {
+          if(arrays[i].id === result[j]?.id){
+          flag = false;
+            break;
+          }
+        }
+        if(flag === true) result.push(arrays[i]);
+      }
+    }
+    getData();
+  }, []);
 
   const logout = () => {
     localStorage.removeItem("session");
@@ -58,36 +85,23 @@ const Pedidos = () => {
 
       <div className="pedidos-page">
         <h1> <b>Lista de Pedidos: </b></h1>
-        <Card
-          hoverable
-          bordered={false}
-          className="ordenar-pedidos card-info-content"
-          onClick={() => {
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            navigate('/Perfil')
+        { result.map((item, i) =>
+          <Card
+            key={i}
+            hoverable
+            bordered={false}
+            className="ordenar-pedidos card-info-content"
+            onClick={() => {
+              navigate('/Perfil')
+              }
             }
-          }
-        >
-          <div className='ordenar-pedidos'>
-            <RightSquareOutlined style={{fontSize:'25px'}}/>
-            <h2 className='pedidos-elemento'>Heberto Urribarri</h2>
-          </div>
-        </Card>
-        <Card
-          hoverable
-          bordered={false}
-          className="ordenar-pedidos card-info-content"
-          onClick={() => {
-            ////////////////////////////////////////////////////////////////////////////////////////////////
-            navigate('/Perfil')
-            }
-          }
-        >
-          <div className='ordenar-pedidos'>
-            <RightSquareOutlined style={{fontSize:'25px'}}/>
-            <h2 className='pedidos-elemento'>Maria Silba</h2>
-          </div>
-        </Card>
+          >
+            <div className='ordenar-pedidos'>
+              <RightSquareOutlined style={{fontSize:'25px'}}/>
+              <h2 className='pedidos-elemento'>{item.nombre}</h2>
+            </div>
+          </Card>
+        )}        
       </div>
 
     </div>
