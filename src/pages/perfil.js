@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { Button, Card, Dropdown, Space } from 'antd';
+import { InputNumber, Button, Card, Dropdown, Space } from 'antd';
 import {useNavigate} from 'react-router-dom';
 import { 
   UserOutlined,
@@ -18,7 +18,10 @@ const Perfil = () => {
   const navigate = useNavigate();
 
   const [IsOpenPdf, setIsOpenPdf] = useState(false);
+  const [effect, setEffect] = useState(false);
   const [data, setData] = useState([]);
+  const [costo, setCosto] = useState();
+  const [reporte, setReporte] = useState();
 
   var user = JSON.parse(localStorage.getItem("userData"));
   var isAdmin = localStorage.getItem("admin");
@@ -35,8 +38,6 @@ const Perfil = () => {
         id = localStorage.getItem("idReload");
 
         const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/users/'+id);
-
-        console.log(response);
 
         if(response.status === 505) { alert('Error en el servidor'); return 0; }
 
@@ -55,13 +56,21 @@ const Perfil = () => {
       setData(response?.data);
     }
     getData();
-  }, []);
+  }, [effect]);
 
-  const generarReporte = () => {
-    //solicitar cotizacion
-    alert("Generar reporte");
+  const generarReporte = (item) => {
+    setReporte(item);
+    alert("Generando reporte...");
     setIsOpenPdf(true);
   };
+
+  const ChangeCosto = async (id) => {
+    await axios.put('https://cubi-api-rest.herokuapp.com/api/request/'+id, {
+      costo: costo
+    });
+    alert('Costo de la peticion con el id = '+id+' modificado.');
+    setEffect(!effect);
+  }
 
   const logout = () => {
     localStorage.removeItem("session");
@@ -146,24 +155,40 @@ const Perfil = () => {
             > 
               {item?.tipoServicio === 'camaras' ?
                 <>
-                  <h3><b>#{i+1} Instalacion de camaras</b></h3>
+                  <h3><b>#{item.id} Instalacion de camaras</b></h3>
                   <p className='text-p'> <b>Dimension: </b> {item.dimencion}</p>
                   <p className='text-p'> <b>Cantidad de camaras externas: </b> {item.camExt}</p>
                   <p className='text-p'> <b>Cantidad de camaras internas: </b> {item.camInt}</p>
                   <p className='text-p'> <b>Tipo de lugar: </b> {item.tipoLugar}</p>
-                  <p className='text-p'> <b>Ubicacion: </b> {item.ubicacion}</p>  
-                  <p className='text-p pedidos'> <b>Costo: ${item.costo}</b></p>
+                  <p className='text-p'> <b>Ubicacion: </b> {item.ubicacion}</p> 
+                  <p className='text-p pedidos'> <b>Costo: ${item.costo}</b></p> 
+                  { isAdmin ?
+                      <div className='text-p pedidos ordenar-pedidos'>
+                        <InputNumber size="large" value={costo} onChange={(e) => setCosto(e)} placeholder="Editar Costo" prefix={'$'}  style={{ width: '100%' }}/>
+                        <Button type="primary" onClick={() => ChangeCosto(item.id)}> Establecer </Button>
+                      </div>
+                    :
+                      null
+                  }
                 </>
               :
                 <>
-                  <h3><b>#{i+1} Instalacion de software Pskloud</b></h3>
+                  <h3><b>#{item.id} Instalacion de software Pskloud</b></h3>
                   <p className='text-p'> <b>Cantidad de computadoras: </b> {item.numComp}</p>
                   <p className='text-p'> <b>Ubicacion: </b> {item.ubicacion}</p>
                   <p className='text-p pedidos'> <b>Costo: ${item.costo}</b></p>
+                  { isAdmin ?
+                      <div className='text-p pedidos ordenar-pedidos'>
+                        <InputNumber size="large" value={costo} onChange={(e) => setCosto(e)} placeholder="Editar Costo" prefix={'$'}  style={{ width: '100%' }}/>
+                        <Button type="primary" onClick={() => ChangeCosto(item.id)}> Establecer </Button>
+                      </div>
+                    :
+                      null
+                  }
                 </>
               }
               { isAdmin ?
-                  <Button className='boton-nav danger' onClick={() => generarReporte()}>Generar reporte de venta</Button>
+                  <Button className='boton-nav danger' onClick={() => generarReporte(item)}>Generar reporte de venta</Button>
                 :
                   null
               }
@@ -248,7 +273,7 @@ const Perfil = () => {
         </>
       }
       { IsOpenPdf ?
-          <Pdf/>
+          <Pdf data = {{reporte, user}}/>
         :
           null
       }

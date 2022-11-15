@@ -35,26 +35,57 @@ const Pdf = (props) => (
     <PDFViewer style={styles.content}>
         <Document>
             <Page size="A4" style={styles.page}>
-                <Text style={styles.title}>Reporte de venta #1</Text>
+                <Text style={styles.title}>Reporte de venta #{props.data.reporte.id}</Text>
                 <View style={styles.separador}></View>
                 <View style={styles.column}>
                     <Text style={styles.bold}>Cliente: </Text>
-                    <Text> #1 | Heberto Urribarri</Text>
+                    <Text> #{props.data.user.id} {props.data.user.nombre}</Text>
                 </View>
-                <View style={styles.separador}></View>
                 <View style={styles.column}>
                     <Text style={styles.bold}>Servicio: </Text>
-                    <Text> #2 | Instalacion de Software de administracion</Text>
+                    { props.data.reporte.tipoServicio === 'camaras' ?
+                      <Text> #1 | Instalacion de Camaras de Seguridad</Text>
+                      :
+                      <Text> #2 | Instalacion de Software de Administracion</Text>
+                    }
                 </View>
-                <View style={styles.separador}></View>
+                { props.data.reporte.tipoServicio === 'camaras' ?
+                  <>
+                    <View style={styles.column}>
+                        <Text style={styles.bold}>Tipo de lugar: </Text>
+                        <Text> {props.data.reporte.tipoLugar}</Text>
+                    </View>
+                    <View style={styles.separador}></View>
+                    <View style={styles.column}>
+                        <Text style={styles.bold}>Dimension del lugar: </Text>
+                        <Text> {props.data.reporte.dimencion} m2</Text>
+                    </View>
+                    <View style={styles.separador}></View>
+                    <View style={styles.column}>
+                        <Text style={styles.bold}>Cantidad de camaras externas: </Text>
+                        <Text> {props.data.reporte.camExt}</Text>
+                    </View>
+                    <View style={styles.column}>
+                        <Text style={styles.bold}>Cantidad de camaras internas: </Text>
+                        <Text> {props.data.reporte.camInt}</Text>
+                    </View>
+                    <View style={styles.separador}></View>
+                  </>
+                  :
+                  <>
+                    <View style={styles.column}>
+                        <Text style={styles.bold}>Cantidad de Computadoras: </Text>
+                        <Text> {props.data.reporte.numComp}</Text>
+                    </View>
+                  </>
+                }
                 <View style={styles.column}>
-                    <Text style={styles.bold}>Metodo de pago: </Text>
-                    <Text> #3 | pago movil</Text>
+                    <Text style={styles.bold}>Ubicacion: </Text>
+                    <Text> {props.data.reporte.ubicacion}</Text>
                 </View>
-                <View style={styles.separador}></View>
                 <View style={styles.column}>
                     <Text style={styles.bold}>Costo: </Text>
-                    <Text> $500</Text>
+                    <Text> ${props.data.reporte.costo}</Text>
                 </View>
             </Page>
         </Document>
