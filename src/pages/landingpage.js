@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Image, Card, Dropdown, Space } from 'antd';
 import {useNavigate} from 'react-router-dom';
 import { MenuOutlined } from '@ant-design/icons';
+import Carousel from 'react-grid-carousel'
 
 import Login from "../components/login";
 import FormCam from "../components/form-cam";
@@ -86,7 +87,7 @@ const LandingPage = () => {
         <a  style={{height: '100%'}} href="#inicio">
           <img
             style={{height: '100%'}}
-            src={ "https://cubi-system.herokuapp.com/logo-menu.jpeg" }
+            src={ window.location.origin + "/logo-menu.jpeg" }
             alt="CubiSystem C.A"
           />
         </a>
@@ -128,7 +129,7 @@ const LandingPage = () => {
       </nav>
 
       <div className="inicio" id='inicio'>
-        <h1 className="text0"> La seguridad al alcance de tus manos! </h1>
+        <h1 className="text0"> Sistemas de seguridad al alcance de tus manos! </h1>
       </div>
 
       <div className="info" id='info'>
@@ -142,7 +143,7 @@ const LandingPage = () => {
                 <Image
                   height={'120px'}
                   width={'110px'}
-                  src={ "https://cubi-system.herokuapp.com/logo.png" }
+                  src={ window.location.origin + "/logo.png" }
                   alt="Logo"
                 />
                 </div>
@@ -196,7 +197,7 @@ const LandingPage = () => {
               hoverable
               className='card-serv '
               cover={<img className='img-card-serv' alt="Instalacion de camaras de Seguridad" 
-              src="https://cubi-system.herokuapp.com/ins-camaras.webp" />}
+              src= {window.location.origin + "/ins-camaras.webp"} />}
             >
               <h4 className='text-p'><b>Instalación de cámaras de seguridad</b></h4>
               <p className='text-p'>Acceso desde cualquier lugar a través de su computador o dispositivo móvil</p>
@@ -211,7 +212,7 @@ const LandingPage = () => {
               hoverable
               className='card-serv'
               cover={<img className='img-card-serv' alt="Instalacion de software" 
-              src="https://cubi-system.herokuapp.com/ins-soft.webp" />}
+              src={window.location.origin + "/ins-soft.webp"} />}
             >
               <h4 className='text-p'><b>Instalación de software administrativo de ventas Pskloud</b></h4>
               <p className='text-p'>Vendemos las licencias de 
@@ -227,6 +228,54 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+
+      <div className='contact-title'>
+        <h1><b>Promocion de productos:</b></h1>
+      </div>
+      <Carousel cols={1} rows={1} autoplay={4000} loop>
+      <Carousel.Item>
+        <div className='carousel-item'>
+        <img className='carousel-margin' alt='camara de interiores' src={window.location.origin + "/int.jpeg"}/>
+        <div>
+          <h1>Camara tipo domo:</h1>
+          <p>Camara para interiores.</p>
+          <br/>
+          <h3><b>Promocion de descuento:</b> Compra mas de 15 camaras tipo domo y recibiras un descuento del 10% </h3>
+        </div>
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+      <div className='carousel-item'>
+        <img className='carousel-margin' alt='camara de exteriores' src={window.location.origin + "/ext.jpeg"}/>
+        <div>
+          <h1>Camara tipo bala:</h1>
+          <p>Camara para exteriores.</p>
+          <br/>
+          <h3><b>Promocion de descuento:</b> Compra mas de 8 camaras tipo bala y recibiras un descuento del 5% </h3>
+        </div>
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+      <div className='carousel-item'>
+        <img className='carousel-margin' alt='digital video records' src={window.location.origin + "/dvr.jpeg"}/>
+        <div>
+          <h1>Digital video record:</h1>
+          <p>Se conecta a las camaras mediante un cableado para la grabación de vídeo en formato digital.</p>
+        </div>
+        </div>
+      </Carousel.Item>
+      <Carousel.Item>
+      <div className='carousel-item'>
+        <img className='carousel-margin' alt='digital video records' src={window.location.origin + "/sistema-administrativo-psk.jpg"}/>
+        <div>
+          <h1>Sistema administrativo Pskloud:</h1>
+          <p>Sistema de Administración y Contabilidad para empresas en general.</p>
+          <br/>
+          <h3><b>Promocion de descuento:</b> Recibe un descuento del 30% con la compra de una licencia de Pskloud antes del 31 de Diciembre del 2022. </h3>
+        </div>
+        </div>
+      </Carousel.Item>
+    </Carousel>
 
       <div className="contactos" id='contact'>
         <div className='contact-title'>

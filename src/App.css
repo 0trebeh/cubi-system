@@ -295,3 +295,28 @@
 .nota {
   background-color: antiquewhite;
 }
+
+.carousel-margin{
+  margin-right: 60px!important;
+}
+.carousel-item {
+ width: 100%;
+ display: flex;
+ justify-content: flex-start;
+ align-items: flex-start;
+ padding: 40px;
+}
+
+@media (max-width: 810px) {
+  .carousel-item {
+    width: 100%;
+    display: block;
+    padding: 40px;
+   }
+}
+
+@media (max-width: 600px) {
+  .carousel-item {
+    padding: 0px;
+   }
+}
