@@ -12,7 +12,7 @@ import Perfil from './pages/perfil'
 import Pedidos from './pages/pedidos'
 
 import axios from 'axios';
-axios.defaults.baseURL = 'https://cubi-api-rest.herokuapp.com';
+axios.defaults.baseURL = 'localhost:4000';
 
 const App = () => {
   return (

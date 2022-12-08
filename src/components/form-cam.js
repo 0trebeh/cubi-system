@@ -25,7 +25,7 @@ const FormCam = (props) => {
       handleCancel();
       alert('Solicitud de cotizacion Enviada.');
 
-      await axios.post('https://cubi-api-rest.herokuapp.com/api/request/newPeticion',{
+      await axios.post('http://localhost:4000/api/request/newPeticion',{
         tipoServicio: 'camaras', 
         dimencion: values.dimension, 
         camExt: values.exteriores, 

@@ -25,7 +25,7 @@ const Register = (props) => {
 
   const onFinish = async (values) => {
     
-    const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/users/newUser',{
+    const response = await axios.post('http://localhost:4000/api/users/newUser',{
       nombre: values.name, 
       telefono: values.cell, 
       email: values.email, 

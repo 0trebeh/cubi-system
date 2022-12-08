@@ -37,7 +37,7 @@ const Perfil = () => {
       if(localStorage.getItem("idReload")){
         id = localStorage.getItem("idReload");
 
-        const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/users/'+id);
+        const response = await axios.get('http://localhost:4000/api/users/'+id);
 
         if(response.status === 505) { alert('Error en el servidor'); return 0; }
 
@@ -52,7 +52,7 @@ const Perfil = () => {
       } else {
         id = JSON.parse(localStorage.getItem("userData")).id;
       }
-      const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/request/'+id);
+      const response = await axios.get('http://localhost:4000/api/request/'+id);
       setData(response?.data);
     }
     getData();
@@ -65,7 +65,7 @@ const Perfil = () => {
   };
 
   const ChangeCosto = async (id) => {
-    await axios.put('https://cubi-api-rest.herokuapp.com/api/request/'+id, {
+    await axios.put('http://localhost:4000/api/request/'+id, {
       costo: costo
     });
     alert('Costo de la peticion con el id = '+id+' modificado.');
@@ -107,7 +107,7 @@ const Perfil = () => {
         <a  style={{height: '100%'}} href="#inicio">
           <img
             style={{height: '100%'}}
-            src={ "https://cubi-system.herokuapp.com/logo-menu.jpeg" }
+            src={ window.location.origin + "/logo-menu.jpeg" }
             alt="CubiSystem C.A"
           />
         </a>

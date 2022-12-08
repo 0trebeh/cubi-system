@@ -20,7 +20,7 @@ const Pedidos = () => {
     const getData = async () => {
       var arrays = [];
       var result = [];
-      const response = await axios.get('https://cubi-api-rest.herokuapp.com/api/request');
+      const response = await axios.get('http://localhost:4000/api/request');
       arrays = response?.data;
 
       var flag = false;
@@ -69,7 +69,7 @@ const Pedidos = () => {
         <a  style={{height: '100%'}} href="#inicio">
           <img
             style={{height: '100%'}}
-            src={ "https://cubi-system.herokuapp.com/logo-menu.jpeg" }
+            src={ window.location.origin + "/logo-menu.jpeg" }
             alt="CubiSystem C.A"
           />
         </a>

@@ -23,7 +23,7 @@ const Login = (props) => {
 
     const onFinish = async (values) => {
         
-      const response = await axios.post('https://cubi-api-rest.herokuapp.com/api/users/login',{
+      const response = await axios.post('http://localhost:4000/api/users/login',{
         email: values.email
       });
 
